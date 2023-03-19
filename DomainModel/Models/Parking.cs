@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel.Models
 {
-    public class Class1
+    public class Parking
     {
     }
 }
