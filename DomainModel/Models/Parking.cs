@@ -12,11 +12,11 @@ namespace DomainModel.Models
         public string City { get; set; }
         public string Neighborhood { get; set; }
         public string OwnerId { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
+        public User? user  { get; set; }   
         public DateTime ParkingFrom { get; set; }
         public DateTime ParkingTo { get; set; }
         public ParkingStatus Status { get; set; }
-        public User? User { get; set; }
 
     }
 }
