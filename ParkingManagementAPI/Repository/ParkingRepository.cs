@@ -1,4 +1,5 @@
-﻿using ParkingManagementAPI.DatabaseContext;
+﻿using DomainModel.Models;
+using ParkingManagementAPI.DatabaseContext;
 
 namespace ParkingManagementAPI.Repository
 {
@@ -9,9 +10,9 @@ namespace ParkingManagementAPI.Repository
         {
             _parkingDbContext = parkingDbContext;
         }
-        public IEnumerable<Parking> GetParkings()
+        public List<Parking> GetParkings()
         {
-            return _parkingDbContext.Parkings.ToList();
+            return _parkingDbContext.Parking.ToList();
         }
     }
 }
