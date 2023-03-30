@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ParkingManagementAPI.DatabaseContext;
+using ParkingManagementAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ParkingDbContext>(option => option.UseSqlServer("name=ConnectionStrings:ParkingConnection"));
+builder.Services.AddScoped<ParkingRepository>();
 
 var app = builder.Build();
 
