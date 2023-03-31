@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ParkingDbContext>(option => option.UseSqlServer("name=ConnectionStrings:ParkingConnection"));
 builder.Services.AddScoped<ParkingRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 var app = builder.Build();
 
