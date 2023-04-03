@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using ParkingManagementBlazorServer.Data;
+using ParkingManagementBlazorServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<ParkingService>();
+//builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(7289));
 
 var app = builder.Build();
 

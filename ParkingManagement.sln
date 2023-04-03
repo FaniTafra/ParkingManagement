@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingManagementAPI", "Par
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainModel", "DomainModel\DomainModel.csproj", "{CFCD3B0D-A7AB-452B-A9F1-90922FC70ED2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingManagementBlazorServer", "ParkingManagementBlazorServer\ParkingManagementBlazorServer.csproj", "{D91ADE3B-DB98-44D2-A949-6A2EE1907B70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingManagementBlazorServer", "ParkingManagementBlazorServer\ParkingManagementBlazorServer.csproj", "{D91ADE3B-DB98-44D2-A949-6A2EE1907B70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

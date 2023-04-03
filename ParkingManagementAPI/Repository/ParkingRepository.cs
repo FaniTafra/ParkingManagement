@@ -14,5 +14,10 @@ namespace ParkingManagementAPI.Repository
         {
             return _parkingDbContext.Parking.ToList();
         }
+        public void InsertParking (Parking parking)
+        {
+            _parkingDbContext.Parking.Add(parking);
+            _parkingDbContext.SaveChanges();
+        }
     }
 }

@@ -1,0 +1,18 @@
+﻿@using DomainModel.Models;
+<h3>ParkingFields</h3>
+
+<div class="parkingFields">
+    <label for="city">City</label>
+    <InputText id="city" class="form-control" @bind-Value="@Parking.City"></InputText>
+    <label for="neighborhood">Neighborhood</label>
+    <InputText id="neighborhood" class="form-control" @bind-Value="@Parking.Neighborhood"></InputText>
+    <label for"parkingFrom">Parking From</label>
+    <InputDate id="parkingFrom" class="form-control" @bind-Value="@Parking.ParkingFrom"></InputDate>
+    <label for"parkingTo">Parking To</label>
+    <InputDate id="parkingTo" class="form-control" @bind-Value="@Parking.ParkingTo"></InputDate>
+</div>
+
+@code {
+    [Parameter]
+    public Parking Parking { get; set; }
+}
