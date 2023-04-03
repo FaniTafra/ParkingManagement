@@ -11,6 +11,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ParkingService>();
+//builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(7289));
 
 var app = builder.Build();
 
