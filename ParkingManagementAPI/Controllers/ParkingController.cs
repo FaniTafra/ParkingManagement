@@ -69,5 +69,18 @@ namespace ParkingManagementAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+        [HttpDelete("{parkingId:int}")]
+        public IActionResult DeleteParking(int parkingId)
+        {
+            try
+            {
+                _parkingRepository.DeleteParking(parkingId);
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

@@ -8,6 +8,6 @@ namespace DomainModel.Enums
 {
     public enum ParkingStatus
     {
-        Free, Pending, Approved, Cancelled, InUse
+        Free, Approved, Cancelled, InUse, Archived
     }
 }

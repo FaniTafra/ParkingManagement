@@ -1,4 +1,4 @@
-﻿<h3>ParkingList</h3>
+﻿<h3>Parking List</h3>
 @page "/"
 @using DomainModel.Models;
 @using ParkingManagementBlazorServer.Services;
@@ -15,6 +15,11 @@
     {
         _navigationManager.NavigateTo("/AddParking");
     }
+    private async Task DeleteParkingAsync(int parkingId)
+    {
+        await _parkingService.DeleteParkingAsync(parkingId);
+        Parkings = await _parkingService.GetParkings();
+    }
 }
 @if(Parkings == null)
 {
@@ -30,7 +35,6 @@ else
                 <th>Owner</th>
                 <th>From</th>
                 <th>To</th>
-                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -42,11 +46,13 @@ else
                     <td>@parking.Owner</td>
                     <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
                     <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
-                    <td>@parking.Status</td>
                     <td>
                         <a href="/EditParking/@parking.Id" class="btn btn-primary">
                             <span class="oi oi-pencil"></span>
                         </a>
+                        <button type="button" @onclick="() => DeleteParkingAsync(parking.Id)">
+                            <span class="oi oi-delete"></span>
+                        </button>
                     </td>
                 </tr>
             }

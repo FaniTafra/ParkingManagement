@@ -34,6 +34,11 @@ namespace ParkingManagementBlazorServer.Services
             "application/json");
             await _httpClient.SendAsync(request);
         }
+        public async Task DeleteParkingAsync(int parkingId)
+        {
+            var httpRequest = new HttpRequestMessage(HttpMethod.Delete, $"{BaseApiUrl}/{parkingId}");
+            await _httpClient.SendAsync(httpRequest);
+        }
 
     }
 }
