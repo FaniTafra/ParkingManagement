@@ -1,5 +1,6 @@
 ﻿using DomainModel.Models;
 using ParkingManagementAPI.DatabaseContext;
+using DomainModel.Enums;
 
 namespace ParkingManagementAPI.Repository
 {
@@ -44,6 +45,11 @@ namespace ParkingManagementAPI.Repository
                 _parkingDbContext.Parking.Remove(parkingForDelete);
                 _parkingDbContext.SaveChanges();
             }
+        }
+        public List<Parking> GetActiveParkings()
+        {
+            var activeParkings = _parkingDbContext.Parking.Where(p => p.Status == ParkingStatus.Free || p.Status == ParkingStatus.Approved || p.Status == ParkingStatus.InUse).ToList();
+            return activeParkings;
         }
     }
 }
