@@ -23,5 +23,17 @@ namespace ParkingManagementBlazorServer.Services
             "application/json");
             await _httpClient.SendAsync(request);
         }
+        public async Task<Parking> GetParkingAsync(int parkingId)
+        {
+            return await _httpClient.GetFromJsonAsync<Parking>($"{BaseApiUrl}/{parkingId}");
+        }
+        public async Task UpdateParkingAsync(Parking parking)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Put, BaseApiUrl);
+            request.Content = new StringContent(JsonSerializer.Serialize(parking), Encoding.UTF8,
+            "application/json");
+            await _httpClient.SendAsync(request);
+        }
+
     }
 }

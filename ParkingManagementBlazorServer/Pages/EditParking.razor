@@ -1,0 +1,44 @@
+﻿@using DomainModel.Models;
+@using ParkingManagementBlazorServer.Services;
+@inject ParkingService _parkingService;
+@inject NavigationManager _navigationManager;
+<h3>EditParking</h3>
+@page "/EditParking/{ParkingId}"
+
+@code {
+    [Parameter]
+    public string ParkingId { get; set; }
+    private Parking Parking { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Parking = await _parkingService.GetParkingAsync(int.Parse(ParkingId));
+    }
+    private void Close()
+    {
+        _navigationManager.NavigateTo("/");
+    }
+    private async Task UpdateParkingAsync()
+    {
+        await _parkingService.UpdateParkingAsync(Parking);
+        Close();
+    }
+}
+
+@if(Parking == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="@Parking" OnValidSubmit="@UpdateParkingAsync">
+        <ParkingFields Parking="@Parking"></ParkingFields>
+        <button type="submit">
+            <span class="oi-pencil"></span>
+            Update Parking
+        </button>
+        <button type="button" @onclick="Close">
+            <span class="oi oi-media-skip-backward"></span>
+            Close
+        </button>
+    </EditForm>
+}

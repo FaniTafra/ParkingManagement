@@ -43,6 +43,11 @@ else
                     <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
                     <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
                     <td>@parking.Status</td>
+                    <td>
+                        <a href="/EditParking/@parking.Id" class="btn btn-primary">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

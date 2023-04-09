@@ -19,5 +19,22 @@ namespace ParkingManagementAPI.Repository
             _parkingDbContext.Parking.Add(parking);
             _parkingDbContext.SaveChanges();
         }
+        public Parking GetParking(int parkingId)
+        {
+            return _parkingDbContext.Parking.
+                FirstOrDefault(parking => parking.Id.Equals(parkingId));
+        }
+        public void UpdateParking(Parking parking)
+        {
+            var parkingForUpdate = GetParking(parking.Id);
+            if (parkingForUpdate != null)
+            {
+                parkingForUpdate.City = parking.City;
+                parkingForUpdate.Neighborhood = parking.Neighborhood;
+                parkingForUpdate.ParkingFrom = parking.ParkingFrom;
+                parkingForUpdate.ParkingTo = parking.ParkingTo;
+                _parkingDbContext.SaveChanges();
+            }
+        }
     }
 }
