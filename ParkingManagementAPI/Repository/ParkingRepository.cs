@@ -36,5 +36,14 @@ namespace ParkingManagementAPI.Repository
                 _parkingDbContext.SaveChanges();
             }
         }
+        public void DeleteParking(int parkingId)
+        {
+            var parkingForDelete = GetParking(parkingId);
+            if (parkingForDelete != null)
+            {
+                _parkingDbContext.Parking.Remove(parkingForDelete);
+                _parkingDbContext.SaveChanges();
+            }
+        }
     }
 }
