@@ -3,12 +3,17 @@
 @using DomainModel.Models;
 @using ParkingManagementBlazorServer.Services;
 @inject ParkingService _parkingService; 
+@inject NavigationManager _navigationManager;
 
 @code {
     private List<Parking> Parkings { get; set; }
     protected override async Task OnInitializedAsync()
     {
         Parkings = await _parkingService.GetParkings();
+    }
+    private void OpenAddParkingPage()
+    {
+        _navigationManager.NavigateTo("/AddParking");
     }
 }
 @if(Parkings == null)
@@ -38,10 +43,20 @@ else
                     <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
                     <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
                     <td>@parking.Status</td>
+                    <td>
+                        <a href="/EditParking/@parking.Id" class="btn btn-primary">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 }
+
+<button type="button" @onclick="OpenAddParkingPage">
+    <span class="oi oi-plus"></span>
+    Add Parking
+</button>
 
 

@@ -23,6 +23,8 @@
     protected override async Task OnInitializedAsync()
     {
         Parking = new Parking();
+        Parking.ParkingFrom = DateTime.Now;
+        Parking.ParkingTo = DateTime.Now;
     }
     private async Task AddParkingAsync()
 
