@@ -15,7 +15,7 @@ namespace ParkingManagementAPI.Repository
         {
             return _parkingDbContext.Parking.ToList();
         }
-        public void InsertParking (Parking parking)
+        public void InsertParking(Parking parking)
         {
             _parkingDbContext.Parking.Add(parking);
             _parkingDbContext.SaveChanges();
@@ -50,6 +50,11 @@ namespace ParkingManagementAPI.Repository
         {
             var activeParkings = _parkingDbContext.Parking.Where(p => p.Status == ParkingStatus.Free || p.Status == ParkingStatus.Approved || p.Status == ParkingStatus.InUse).ToList();
             return activeParkings;
+        }
+        public List<Parking> GetArchivedParkings()
+        {
+            var archivedParkings = _parkingDbContext.Parking.Where(p => p.Status == ParkingStatus.Archived).ToList();
+            return archivedParkings;
         }
     }
 }

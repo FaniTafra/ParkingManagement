@@ -16,6 +16,14 @@ namespace ParkingManagementBlazorServer.Services
         {
             return await _httpClient.GetFromJsonAsync<List<Parking>>(BaseApiUrl);
         }
+        public async Task<List<Parking>> GetActiveParkings()
+        {
+            return await _httpClient.GetFromJsonAsync<List<Parking>>($"{BaseApiUrl}/active");
+        }
+        public async Task<List<Parking>> GetArchivedParkings()
+        {
+            return await _httpClient.GetFromJsonAsync<List<Parking>>($"{BaseApiUrl}/archived");
+        }
         public async Task AddParkingAsync(Parking parking)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, BaseApiUrl);

@@ -1,0 +1,43 @@
+﻿<h3>ArchivedParkings</h3>
+@page "/ArchivedParkings"
+@using DomainModel.Models;
+@using ParkingManagementBlazorServer.Services;
+@inject ParkingService _parkingService;
+
+@code {
+    private List<Parking> Parkings { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Parkings = await _parkingService.GetArchivedParkings();
+    }
+}
+
+@if (Parkings == null)
+{
+    <div>Loading...</div>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Neighborhood</th>
+                <th>Owner</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var parking in Parkings)
+            {
+                <tr>
+                    <td>@parking.City</td>
+                    <td>@parking.Neighborhood</td>
+                    <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
+                    <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -27,6 +27,32 @@ namespace ParkingManagementAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+        [HttpGet("active")]
+        public IActionResult GetActiveParkings()
+        {
+            try
+            {
+                var parking = _parkingRepository.GetActiveParkings();
+                return Ok(parking);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        [HttpGet("archived")]
+        public IActionResult GetArchivedParkings()
+        {
+            try
+            {
+                var parking = _parkingRepository.GetArchivedParkings();
+                return Ok(parking);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
         [HttpPost]
         public IActionResult AddParking([FromBody] Parking parking)
         {
