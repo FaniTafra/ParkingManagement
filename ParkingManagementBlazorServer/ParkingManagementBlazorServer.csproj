@@ -10,12 +10,4 @@
     <ProjectReference Include="..\DomainModel\DomainModel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ActiveParkings.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\ActiveParkings.razor" />
-  </ItemGroup>
-
 </Project>

@@ -15,11 +15,6 @@
     {
         _navigationManager.NavigateTo("/AddParking");
     }
-    private async Task DeleteParkingAsync(int parkingId)
-    {
-        await _parkingService.DeleteParkingAsync(parkingId);
-        Parkings = await _parkingService.GetParkings();
-    }
 }
 @if(Parkings == null)
 {
@@ -46,14 +41,6 @@ else
                     <td>@parking.Owner</td>
                     <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
                     <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
-                    <td>
-                        <a href="/EditParking/@parking.Id" class="btn btn-primary">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button type="button" @onclick="() => DeleteParkingAsync(parking.Id)">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
                 </tr>
             }
         </tbody>
