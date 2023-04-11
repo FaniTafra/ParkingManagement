@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\ActiveParkings.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DomainModel\DomainModel.csproj" />
   </ItemGroup>
 
@@ -20,10 +16,6 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\ActiveParkings.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\ActiveParkings.razor" />
   </ItemGroup>
 
 </Project>
