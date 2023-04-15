@@ -10,12 +10,28 @@
     {
         Parkings = await _parkingService.GetActiveParkings();
     }
-    private async Task DeleteParkingAsync(int parkingId)
+    
+    public ConfirmationDialog DeleteConfirmationDialog { get; set; }
+    public int SelectedParkingId { get; set; }
+
+
+    private async Task OnDeleteConfirmationSelected(bool isDeleteConfirmed)
     {
-        await _parkingService.DeleteParkingAsync(parkingId);
-        Parkings = await _parkingService.GetActiveParkings();
+        if (isDeleteConfirmed)
+        {
+            await _parkingService.DeleteParking(SelectedParkingId);
+            Parkings = await _parkingService.GetActiveParkings();
+        }
+    }
+
+    private async Task DeleteParking(int parkingId)
+    {
+        SelectedParkingId = parkingId;
+        DeleteConfirmationDialog.Show();
     }
 }
+
+<ConfirmationDialog @ref="DeleteConfirmationDialog" ConfirmationChanged="@OnDeleteConfirmationSelected"></ConfirmationDialog>
 
 @if (Parkings == null)
 {
@@ -46,7 +62,7 @@ else
                         <a href="/EditParking/@parking.Id" class="btn btn-primary">
                             <span class="oi oi-pencil"></span>
                         </a>
-                        <button type="button" @onclick="() => DeleteParkingAsync(parking.Id)">
+                        <button type="button" @onclick="() => DeleteParking(parking.Id)">
                             <span class="oi oi-delete"></span>
                         </button>
                     </td>

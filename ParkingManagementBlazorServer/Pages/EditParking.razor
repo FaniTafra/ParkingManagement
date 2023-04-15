@@ -32,11 +32,11 @@ else
 {
     <EditForm Model="@Parking" OnValidSubmit="@UpdateParkingAsync">
         <ParkingFields Parking="@Parking"></ParkingFields>
-        <button type="submit">
+        <button type="submit" class="btn btn-success">
             <span class="oi-pencil"></span>
             Update Parking
         </button>
-        <button type="button" @onclick="Close">
+        <button type="button" class="btn btn-secondary" @onclick="Close">
             <span class="oi oi-media-skip-backward"></span>
             Close
         </button>
