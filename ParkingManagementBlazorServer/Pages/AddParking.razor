@@ -1,21 +1,25 @@
 ﻿<h3>AddParking</h3>
 @page "/AddParking"
+@using System.Text;
 @using DomainModel.Models;
 @using ParkingManagementBlazorServer.Services;
+@using ParkingManagementBlazorServer.ValidationModels;
 @inject ParkingService _parkingService;
 @inject NavigationManager _navigationManager;
 
 <EditForm Model="@Parking" OnValidSubmit="@AddParkingAsync">
     <ParkingFields Parking="@Parking"></ParkingFields>
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-success">
         <span class="oi-pencil"></span>
         Add Parking
     </button>
-    <button type="button" @onclick="Close">
+    <button type="button" class="btn btn-secondary" @onclick="Close">
         <span class="oi oi-media-skip-backward"></span>
         Close
     </button>
 </EditForm>
+
+<NotificationDialog @ref="NotificationDialog" Description="@ConcatenatedValidationErrors"></NotificationDialog>
 
 
 @code {
@@ -30,11 +34,48 @@
     private async Task AddParkingAsync()
 
     {
-        await _parkingService.AddParkingAsync(Parking);
-        Close();
+        ValidationErrors = ValidateParking();
+        if (ValidationErrors.Any())
+        {
+            ConcatenatedValidationErrors = GetConcatenatedValidationErrors(ValidationErrors);
+            NotificationDialog.Show();
+        }
+        else
+        {
+            await _parkingService.AddParkingAsync(Parking);
+            Close();
+        }
     }
     private void Close()
     {
         _navigationManager.NavigateTo("/");
+    }
+
+    public NotificationDialog NotificationDialog { get; set; }
+    public List<ValidationError> ValidationErrors { get; set; }
+    public String ConcatenatedValidationErrors { get; set; }
+
+
+    private List<ValidationError> ValidateParking()
+    {
+        var validationErrors = new List<ValidationError>();
+        if (String.IsNullOrWhiteSpace(Parking.City))
+            validationErrors.Add(new ValidationError { Description = "Please insert city!" });
+        if (String.IsNullOrWhiteSpace(Parking.Neighborhood))
+            validationErrors.Add(new ValidationError { Description = "Please insert Neighborhood!" });
+        return validationErrors;
+    }
+
+    private string GetConcatenatedValidationErrors(List<ValidationError> ValidationErrors)
+    {
+        StringBuilder message = new StringBuilder();
+        foreach (var error in ValidationErrors)
+        {
+            if (message.Length == 0)
+                message.Append(error.Description);
+            else
+                message.Append($"{Environment.NewLine} {error.Description}");
+        }
+        return message.ToString();
     }
 }
