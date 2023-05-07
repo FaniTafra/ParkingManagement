@@ -1,0 +1,37 @@
+﻿@page "/Register"
+<h3>Register Form</h3>
+@using DomainModel.Models;
+
+<div class="RegisterFields">
+    <label for="username">Username</label>
+    <InputText id="username" class="form-control" @bind-Value="@User.UserName"></InputText>
+    <label for="firstname">First Name</label>
+    <InputText id="firstname" class="form-control" @bind-Value="@User.FirstName"></InputText>
+    <label for="lastname">Last Name</label>
+    <InputText id="lastname" class="form-control" @bind-Value="@User.LastName"></InputText>
+    <label for="password">Password</label>
+    <InputText id="password" class="form-control" @bind-Value="@User.Password"></InputText>
+    <div>
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+    </div>
+    <label for="birthday">Birthday</label>
+    <InputDate id="birthday" class="form-control" @bind-Value="@User.Birthday"></InputDate>
+    <label for="email">Email</label>
+    <InputText id="email" class="form-control" @bind-Value="@User.Email"></InputText>
+    <label for="phone">Phone</label>
+    <InputText id="phone" class="form-control" @bind-Value="@User.Phone"></InputText>
+</div>
+
+@code {
+    public User User { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        User = new User();
+        User.Birthday = DateTime.Now;
+    }
+}

@@ -14,6 +14,10 @@
                 <span class="fa fa-sign-in"></span>
                 Log in
             </button>
+            <button title="Register" class="btn btn-primary" @onclick="ShowRegisterForm">
+                <span class="fa fa-sign-in"></span>
+                Register
+            </button>
         </div>
 
         <article class="content px-4">
@@ -26,5 +30,9 @@
     private void ShowLoginForm()
     {
         _navigationManager.NavigateTo("Login");
+    }
+     private void ShowRegisterForm()
+    {
+        _navigationManager.NavigateTo("Register");
     }
 }
