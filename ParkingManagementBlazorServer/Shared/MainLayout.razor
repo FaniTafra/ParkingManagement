@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager _navigationManager;
 
 <PageTitle>ParkingManagementBlazorServer</PageTitle>
 
@@ -9,6 +10,10 @@
 
     <main>
         <div class="top-row px-4">
+            <button title="Log In" class="btn btn-primary" @onclick="ShowLoginForm">
+                <span class="fa fa-sign-in"></span>
+                Log in
+            </button>
         </div>
 
         <article class="content px-4">
@@ -16,3 +21,10 @@
         </article>
     </main>
 </div>
+
+@code{
+    private void ShowLoginForm()
+    {
+        _navigationManager.NavigateTo("Login");
+    }
+}
