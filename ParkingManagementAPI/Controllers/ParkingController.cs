@@ -1,6 +1,6 @@
 ﻿using DomainModel.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using ParkingManagementAPI.Repository;
 
 namespace ParkingManagementAPI.Controllers
@@ -21,6 +21,7 @@ namespace ParkingManagementAPI.Controllers
             {
                 var parking = _parkingRepository.GetParkings();
                 return Ok(parking);
+                Console.WriteLine("Hello, world!");
             }
             catch (System.Exception)
             {

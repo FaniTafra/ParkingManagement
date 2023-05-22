@@ -1,0 +1,40 @@
+﻿@page "/Register"
+<h3>Register Form</h3>
+@using System.Text;
+@using DomainModel.Models;
+@using ParkingManagementBlazorServer.Services;
+@inject UserService _userService;
+@inject NavigationManager _navigationManager;
+
+
+<EditForm Model="@User" OnValidSubmit="@AddUserAsync">
+    <UserFields User="@User"></UserFields>
+    <button type="submit" class="btn btn-success">
+        <span class="oi-pencil"></span>
+        Submit
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="Close">
+        <span class="oi oi-media-skip-backward"></span>
+        Close
+    </button>
+</EditForm>
+
+@code {
+    public User User { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        User = new User();
+        User.Birthday = DateTime.Now;
+    }
+
+    private async Task AddUserAsync()
+    {
+        await _userService.AddUserAsync(User);
+        Close();
+    }
+
+    private void Close()
+    {
+        _navigationManager.NavigateTo("/");
+    }
+}

@@ -9,6 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ParkingService>();
+builder.Services.AddScoped<UserService>();
 //builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(7289));
 
 var app = builder.Build();
