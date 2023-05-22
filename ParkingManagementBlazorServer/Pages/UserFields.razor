@@ -1,0 +1,31 @@
+﻿@using DomainModel.Models;
+<h3>UserFields</h3>
+
+<div class="UserFields">
+    <label for="username">Username</label>
+    <InputText id="username" class="form-control" @bind-Value="@User.UserName"></InputText>
+    <label for="firstname">First Name</label>
+    <InputText id="firstname" class="form-control" @bind-Value="@User.FirstName"></InputText>
+    <label for="lastname">Last Name</label>
+    <InputText id="lastname" class="form-control" @bind-Value="@User.LastName"></InputText>
+    <label for="password">Password</label>
+    <InputText id="password" class="form-control" @bind-Value="@User.Password"></InputText>
+    <label for="gender">Gender</label>
+    <InputSelect id="gender" @bind-Value="@User.Gender" class="form-control" style="width:40%;">
+        <option value="">Select...</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </InputSelect>
+    <label for="birthday">Birthday</label>
+    <InputDate id="birthday" class="form-control" @bind-Value="@User.Birthday"></InputDate>
+    <label for="email">Email</label>
+    <InputText id="email" class="form-control" @bind-Value="@User.Email"></InputText>
+    <label for="phone">Phone</label>
+    <InputText id="phone" class="form-control" @bind-Value="@User.Phone"></InputText>
+</div>
+
+@code {
+    [Parameter]
+    public User User { get; set; }
+}
