@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager _navigationManager;
+@inject CustomAuthenticationStateProvider _customAuthenticationStateProvider;
 
 <PageTitle>ParkingManagementBlazorServer</PageTitle>
 
@@ -10,10 +11,14 @@
 
     <main>
         <div class="top-row px-4">
-            <button title="Log In" class="btn btn-primary" @onclick="ShowLoginForm">
-                <span class="fa fa-sign-in"></span>
-                Log in
-            </button>
+            <AuthorizeView>
+                <Authorized>
+                    <button class="btn btn-info" @onclick="LogOut">Log Out</button>
+                </Authorized>
+                <NotAuthorized>
+                    <button class="btn btn-info" @onclick="ShowLoginForm">Log In</button>
+                </NotAuthorized>
+            </AuthorizeView>
             <button title="Register" class="btn btn-primary" @onclick="ShowRegisterForm">
                 <span class="fa fa-sign-in"></span>
                 Register
@@ -34,5 +39,10 @@
      private void ShowRegisterForm()
     {
         _navigationManager.NavigateTo("Register");
+    }
+    protected async Task LogOut()
+    {
+        await _customAuthenticationStateProvider.RemoveItem("authToken");
+        _navigationManager.NavigateTo("/");
     }
 }
