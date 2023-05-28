@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using ParkingManagementBlazorServer.Services;
 
@@ -10,6 +11,9 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ParkingService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<CustomAuthenticationStateProvider>());
 //builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(7289));
 
 var app = builder.Build();
