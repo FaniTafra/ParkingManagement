@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkingManagementAPI.Repository;
+using ParkingManagementAPI.Services;
 
 namespace ParkingManagementAPI.Controllers
 {
@@ -10,9 +11,11 @@ namespace ParkingManagementAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserRepository _userRepository;
-        public UserController(UserRepository userRepository)
+        private readonly UserService _userService;
+        public UserController(UserRepository userRepository, UserService userService)
         {
             _userRepository = userRepository;
+            _userService = userService;
         }
         [HttpGet]
         public IActionResult GetUsers()
@@ -35,7 +38,7 @@ namespace ParkingManagementAPI.Controllers
                 return BadRequest();
             try
             {
-                _userRepository.InsertUser(user);
+                _userService.RegisterUser(user);
                 return Ok();
             }
             catch (System.Exception)
