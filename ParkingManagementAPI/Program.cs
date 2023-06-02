@@ -19,6 +19,7 @@ builder.Services.AddDbContext<ParkingDbContext>(option => option.UseSqlServer("n
 builder.Services.AddScoped<ParkingRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

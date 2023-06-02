@@ -13,16 +13,16 @@
         <div class="top-row px-4">
             <AuthorizeView>
                 <Authorized>
-                    <button class="btn btn-info" @onclick="LogOut">Log Out</button>
+                    <button class="btn btn-primary" @onclick="LogOut">Log Out</button>
                 </Authorized>
                 <NotAuthorized>
-                    <button class="btn btn-info" @onclick="ShowLoginForm">Log In</button>
+                    <button title="Register" class="btn btn-primary" @onclick="ShowRegisterForm">
+                        <span class="fa fa-sign-in"></span>
+                        Register
+                    </button>
+                    <button class="btn btn-primary" @onclick="ShowLoginForm">Log In</button>
                 </NotAuthorized>
             </AuthorizeView>
-            <button title="Register" class="btn btn-primary" @onclick="ShowRegisterForm">
-                <span class="fa fa-sign-in"></span>
-                Register
-            </button>
         </div>
 
         <article class="content px-4">

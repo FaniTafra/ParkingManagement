@@ -40,8 +40,8 @@ namespace ParkingManagementAPI.Services
         public User Authenticate(UserLogin userLogin)
         {
             var users = _userRepository.GetUsers();
-            //var currentUser = users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == HashUserPassword(userLogin.Password));
-            var currentUser = users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == userLogin.Password);
+            var currentUser = users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == HashUserPassword(userLogin.Password));
+            //var currentUser = users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == userLogin.Password);
             return currentUser;
         }
         private string HashUserPassword(string plainTextPassword)

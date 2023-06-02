@@ -33,12 +33,6 @@ namespace ParkingManagementBlazorServer.Services
                 if (jwtToken.Result != "User not found")
                 {
                     await _customAuthenticationStateProvider.SetTokenAsync(jwtToken.Result);
-                    //var identity = await _customAuthenticationStateProvider.GetAuthenticationStateAsync();
-                    //var claims = identity.User.Identities.First().Claims.ToList();
-                    //if (claims[2].Value == "Employee")
-                    //    _navigationManager.NavigateTo("/Employee");
-                    //else
-                    //    _navigationManager.NavigateTo("/Admin");
                     _navigationManager.NavigateTo("/");
                 }
                 else
