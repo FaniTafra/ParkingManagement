@@ -6,6 +6,7 @@
 @using ParkingManagementBlazorServer.ValidationModels;
 @inject ParkingService _parkingService;
 @inject NavigationManager _navigationManager;
+@inject CustomAuthenticationStateProvider _customAuthenticationStateProvider;
 
 <EditForm Model="@Parking" OnValidSubmit="@AddParkingAsync">
     <ParkingFields Parking="@Parking"></ParkingFields>
@@ -30,6 +31,7 @@
         Parking.ParkingFrom = DateTime.Now;
         Parking.ParkingTo = DateTime.Now;
         Parking.OwnerId = 1;
+        await _customAuthenticationStateProvider.DeleteExpiredTokenFromLocalStorage();
     }
     private async Task AddParkingAsync()
 

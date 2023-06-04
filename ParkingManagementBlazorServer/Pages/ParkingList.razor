@@ -4,12 +4,14 @@
 @using ParkingManagementBlazorServer.Services;
 @inject ParkingService _parkingService; 
 @inject NavigationManager _navigationManager;
+@inject CustomAuthenticationStateProvider _customAuthenticationStateProvider;
 
 @code {
     private List<Parking> Parkings { get; set; }
     protected override async Task OnInitializedAsync()
     {
         Parkings = await _parkingService.GetParkings();
+        await _customAuthenticationStateProvider.DeleteExpiredTokenFromLocalStorage();
     }
     private void OpenAddParkingPage()
     {
