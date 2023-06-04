@@ -67,12 +67,19 @@ namespace ParkingManagementBlazorServer.Services
             try
             {
                 var jwtToken = await GetTokenAsync();
-                var handler = new JwtSecurityTokenHandler();
-                var token = handler.ReadToken(jwtToken) as JwtSecurityToken;
-                if (token.ValidTo < DateTime.UtcNow)
+                if (jwtToken == null)
                 {
-                    await RemoveItem("authToken");
-                    _navigationManager.NavigateTo("/");
+                    Console.WriteLine("nema tokena");
+                }
+                else
+                {
+                    var handler = new JwtSecurityTokenHandler();
+                    var token = handler.ReadToken(jwtToken) as JwtSecurityToken;
+                    if (token.ValidTo < DateTime.UtcNow)
+                    {
+                        await RemoveItem("authToken");
+                        _navigationManager.NavigateTo("/");
+                    }
                 }
             }
             catch (Exception e)

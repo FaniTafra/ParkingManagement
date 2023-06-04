@@ -4,6 +4,7 @@
 @using ParkingManagementBlazorServer.ValidationModels;
 @inject ParkingService _parkingService;
 @inject NavigationManager _navigationManager;
+@inject CustomAuthenticationStateProvider _customAuthenticationStateProvider;
 <h3>EditParking</h3>
 @page "/EditParking/{ParkingId}"
 
@@ -14,6 +15,7 @@
     protected override async Task OnInitializedAsync()
     {
         Parking = await _parkingService.GetParkingAsync(int.Parse(ParkingId));
+        await _customAuthenticationStateProvider.DeleteExpiredTokenFromLocalStorage();
     }
     private void Close()
     {

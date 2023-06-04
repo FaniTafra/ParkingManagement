@@ -32,7 +32,7 @@ namespace ParkingManagementAPI.Services
                 new Claim(ClaimTypes.NameIdentifier, user.UserName)
             };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"], claims,
-                expires: DateTime.UtcNow.AddMinutes(45),
+                expires: DateTime.UtcNow.AddMinutes(1),
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -41,7 +41,6 @@ namespace ParkingManagementAPI.Services
         {
             var users = _userRepository.GetUsers();
             var currentUser = users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == HashUserPassword(userLogin.Password));
-            //var currentUser = users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == userLogin.Password);
             return currentUser;
         }
         private string HashUserPassword(string plainTextPassword)

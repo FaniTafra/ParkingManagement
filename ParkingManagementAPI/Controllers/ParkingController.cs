@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using ParkingManagementAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ParkingManagementAPI.Controllers
 {
@@ -54,6 +55,7 @@ namespace ParkingManagementAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+        [Authorize]
         [HttpPost]
         public IActionResult AddParking([FromBody] Parking parking)
         {
