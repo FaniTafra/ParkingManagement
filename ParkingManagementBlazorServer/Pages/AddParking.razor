@@ -30,7 +30,6 @@
         Parking = new Parking();
         Parking.ParkingFrom = DateTime.Now;
         Parking.ParkingTo = DateTime.Now;
-        Parking.OwnerId = 1;
         await _customAuthenticationStateProvider.DeleteExpiredTokenFromLocalStorage();
     }
     private async Task AddParkingAsync()

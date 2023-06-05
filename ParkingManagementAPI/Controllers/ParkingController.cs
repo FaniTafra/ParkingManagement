@@ -55,8 +55,9 @@ namespace ParkingManagementAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-        [Authorize]
+        
         [HttpPost]
+        [Authorize]
         public IActionResult AddParking([FromBody] Parking parking)
         {
             if (parking == null)
