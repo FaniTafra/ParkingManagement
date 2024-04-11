@@ -1,4 +1,4 @@
-﻿<h3>ConfirmationDialog</h3>
+﻿
 
 @code {
     public bool ShowDialog { get; set; }
@@ -30,7 +30,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Delete parking?
+                    Are you sure?
                 </div>
                 <div class="modal-footer">
                     <button type="button" @onclick="() => OnConfirmationChanged(true)" class="btn btn-primary">Yes</button>

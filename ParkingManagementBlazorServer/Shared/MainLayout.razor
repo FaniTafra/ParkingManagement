@@ -16,10 +16,10 @@
                     <button class="btn btn-primary" @onclick="LogOut">Log Out</button>
                 </Authorized>
                 <NotAuthorized>
-                    <button title="Register" class="btn btn-primary" @onclick="ShowRegisterForm">
+                    @*<button title="Register" class="btn btn-primary" style=" margin-right: 10px;" @onclick="ShowRegisterForm">
                         <span class="fa fa-sign-in"></span>
                         Register
-                    </button>
+                    </button>*@
                     <button class="btn btn-primary" @onclick="ShowLoginForm">Log In</button>
                 </NotAuthorized>
             </AuthorizeView>
@@ -42,7 +42,7 @@
     }
     protected async Task LogOut()
     {
-        await _customAuthenticationStateProvider.RemoveItem("authToken");
         _navigationManager.NavigateTo("/");
+        await _customAuthenticationStateProvider.RemoveItem("authToken");
     }
 }

@@ -1,4 +1,4 @@
-﻿<h3>AddParking</h3>
+﻿<h3>Add Parking</h3>
 @page "/AddParking"
 @using System.Text;
 @using DomainModel.Models;
@@ -10,6 +10,7 @@
 
 <EditForm Model="@Parking" OnValidSubmit="@AddParkingAsync">
     <ParkingFields Parking="@Parking"></ParkingFields>
+    <br />
     <button type="submit" class="btn btn-success">
         <span class="oi-pencil"></span>
         Add Parking
@@ -30,7 +31,6 @@
         Parking = new Parking();
         Parking.ParkingFrom = DateTime.Now;
         Parking.ParkingTo = DateTime.Now;
-        Parking.OwnerId = 1;
         await _customAuthenticationStateProvider.DeleteExpiredTokenFromLocalStorage();
     }
     private async Task AddParkingAsync()

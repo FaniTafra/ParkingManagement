@@ -22,32 +22,19 @@ namespace ParkingManagementAPI.Controllers
             {
                 var parking = _parkingRepository.GetParkings();
                 return Ok(parking);
-                Console.WriteLine("Hello, world!");
             }
             catch (System.Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-        [HttpGet("active")]
-        public IActionResult GetActiveParkings()
+        [Authorize]
+        [HttpGet("active/{userId}")]
+        public IActionResult GetActiveParkings(int userId)
         {
             try
             {
-                var parking = _parkingRepository.GetActiveParkings();
-                return Ok(parking);
-            }
-            catch (System.Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-        }
-        [HttpGet("archived")]
-        public IActionResult GetArchivedParkings()
-        {
-            try
-            {
-                var parking = _parkingRepository.GetArchivedParkings();
+                var parking = _parkingRepository.GetActiveParkings(userId);
                 return Ok(parking);
             }
             catch (System.Exception)
@@ -56,7 +43,22 @@ namespace ParkingManagementAPI.Controllers
             }
         }
         [Authorize]
+        [HttpGet("archived/{userId}")]
+        public IActionResult GetArchivedParkings(int userId)
+        {
+            try
+            {
+                var parking = _parkingRepository.GetArchivedParkings(userId);
+                return Ok(parking);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        
         [HttpPost]
+        [Authorize]
         public IActionResult AddParking([FromBody] Parking parking)
         {
             if (parking == null)
@@ -104,6 +106,49 @@ namespace ParkingManagementAPI.Controllers
             try
             {
                 _parkingRepository.DeleteParking(parkingId);
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("{SelectedId:int}/{userId:int}")]
+        public IActionResult SelectingParking(int SelectedId, int userId)
+        {
+            try
+            {
+                _parkingRepository.SelectingParking(SelectedId, userId);
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("selected/{userId}")]
+        public IActionResult GetSelectedParkings(int userId)
+        {
+            try
+            {
+                var parking = _parkingRepository.GetSelectedParkings(userId);
+                return Ok(parking);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("cancel/{parkingId:int}")]
+        public IActionResult CancelParking(int parkingId)
+        {
+            try
+            {
+                _parkingRepository.CancelParking(parkingId);
                 return Ok();
             }
             catch (System.Exception)
