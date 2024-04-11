@@ -13,7 +13,7 @@ namespace ParkingManagementAPI.Repository
         }
         public List<Parking> GetParkings()
         {
-            return _parkingDbContext.Parking.ToList();
+            return _parkingDbContext.Parking.OrderBy(p => p.ParkingFrom).ToList();
         }
         public void InsertParking(Parking parking)
         {
@@ -46,15 +46,42 @@ namespace ParkingManagementAPI.Repository
                 _parkingDbContext.SaveChanges();
             }
         }
-        public List<Parking> GetActiveParkings()
+        public List<Parking> GetActiveParkings(int userId)
         {
-            var activeParkings = _parkingDbContext.Parking.Where(p => p.Status == ParkingStatus.Free || p.Status == ParkingStatus.Approved || p.Status == ParkingStatus.InUse).ToList();
+            var activeParkings = _parkingDbContext.Parking.Where(p => (p.Status == ParkingStatus.Free || p.Status == ParkingStatus.Approved || p.Status == ParkingStatus.InUse) && p.OwnerId == userId).OrderBy(p => p.ParkingFrom).ToList();
             return activeParkings;
         }
-        public List<Parking> GetArchivedParkings()
+        public List<Parking> GetArchivedParkings(int userId)
         {
-            var archivedParkings = _parkingDbContext.Parking.Where(p => p.Status == ParkingStatus.Archived).ToList();
+            var archivedParkings = _parkingDbContext.Parking.Where(p => p.Status == ParkingStatus.Archived && p.OwnerId == userId).OrderBy(p => p.ParkingFrom).ToList();
             return archivedParkings;
+        }
+
+        public void SelectingParking(int SelectedId, int userId)
+        {
+            var selectedParking = _parkingDbContext.Parking.FirstOrDefault(p => p.Id == SelectedId);
+            if (selectedParking != null && selectedParking.OwnerId != userId)
+            {
+                selectedParking.UserId = userId;
+                selectedParking.Status = ParkingStatus.Approved;
+                _parkingDbContext.SaveChanges();
+            }
+        }
+
+        public List<Parking> GetSelectedParkings(int userId)
+        {
+            var selectedParkings = _parkingDbContext.Parking.Where(p => (p.Status == ParkingStatus.Approved || p.Status == ParkingStatus.InUse || p.Status == ParkingStatus.Archived) && p.UserId == userId).ToList();
+            return selectedParkings;
+        }
+
+        public void CancelParking(int parkingId)
+        {
+            var parkingForCancel = _parkingDbContext.Parking.FirstOrDefault(p => p.Id == parkingId);
+            if (parkingForCancel != null)
+            {
+                parkingForCancel.UserId = null;
+                _parkingDbContext.SaveChanges();
+            }
         }
     }
 }

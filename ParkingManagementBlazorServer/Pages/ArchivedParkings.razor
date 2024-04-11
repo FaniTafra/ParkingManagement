@@ -1,5 +1,6 @@
-﻿<h3>ArchivedParkings</h3>
+﻿
 @page "/ArchivedParkings"
+@using DomainModel.Enums;
 @using DomainModel.Models;
 @using ParkingManagementBlazorServer.Services;
 @inject ParkingService _parkingService;
@@ -7,38 +8,87 @@
 
 @code {
     private List<Parking> Parkings { get; set; }
+    private List<Parking>? SelectedParkings { get; set; }
     protected override async Task OnInitializedAsync()
     {
         Parkings = await _parkingService.GetArchivedParkings();
+        SelectedParkings = await _parkingService.GetSelectedParkings();
         await _customAuthenticationStateProvider.DeleteExpiredTokenFromLocalStorage();
+    }
+
+    public ConfirmationDialog DeleteConfirmationDialog { get; set; }
+    public int SelectedParkingId { get; set; }
+
+
+    private async Task OnDeleteConfirmationSelected(bool isDeleteConfirmed)
+    {
+        if (isDeleteConfirmed)
+        {
+            await _parkingService.DeleteParking(SelectedParkingId);
+            Parkings = await _parkingService.GetArchivedParkings();
+            SelectedParkings = await _parkingService.GetSelectedParkings();
+        }
+    }
+
+    private async Task DeleteParking(int parkingId)
+    {
+        SelectedParkingId = parkingId;
+        DeleteConfirmationDialog.Show();
     }
 }
 
-@if (Parkings == null)
+@if (Parkings == null && SelectedParkings == null)
 {
     <div>Loading...</div>
 }
 else
 {
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>City</th>
-                <th>Neighborhood</th>
-                <th>Owner</th>
-                <th>From</th>
-                <th>To</th>
+                <th scope="col">City</th>
+                <th scope="col">Neighborhood</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var parking in Parkings)
+            @if (Parkings != null)
             {
-                <tr>
-                    <td>@parking.City</td>
-                    <td>@parking.Neighborhood</td>
-                    <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
-                    <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
-                </tr>
+                @foreach (var parking in Parkings)
+                {
+                    <tr>
+                        <td>@parking.City</td>
+                        <td>@parking.Neighborhood</td>
+                        <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
+                        <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
+                        <td>
+                            <button type="button">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }  
+            }
+            @if (SelectedParkings != null)
+            {
+                @foreach (var parking in SelectedParkings)
+                {
+                    @if (parking.ParkingTo < DateTime.Now && parking.Status == ParkingStatus.Archived)
+                    {
+                        <tr>
+                            <td>@parking.City</td>
+                            <td>@parking.Neighborhood</td>
+                            <td>@parking.ParkingFrom.ToString("dd.MM.yyyy")</td>
+                            <td>@parking.ParkingTo.ToString("dd.MM.yyyy")</td>
+                            <td>
+                                <button type="button" @onclick="() => DeleteParking(parking.Id)">
+                                    <span class="oi oi-delete"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
             }
         </tbody>
     </table>

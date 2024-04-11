@@ -5,7 +5,7 @@
 @inject ParkingService _parkingService;
 @inject NavigationManager _navigationManager;
 @inject CustomAuthenticationStateProvider _customAuthenticationStateProvider;
-<h3>EditParking</h3>
+<h3>Edit Parking</h3>
 @page "/EditParking/{ParkingId}"
 
 @code {
@@ -72,6 +72,7 @@ else
 {
     <EditForm Model="@Parking" OnValidSubmit="@UpdateParkingAsync">
         <ParkingFields Parking="@Parking"></ParkingFields>
+        <br />
         <button type="submit" class="btn btn-success">
             <span class="oi-pencil"></span>
             Update Parking

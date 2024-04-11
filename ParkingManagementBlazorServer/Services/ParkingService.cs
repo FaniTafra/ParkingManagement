@@ -21,11 +21,15 @@ namespace ParkingManagementBlazorServer.Services
         }
         public async Task<List<Parking>> GetActiveParkings()
         {
-            return await _httpClient.GetFromJsonAsync<List<Parking>>($"{BaseApiUrl}/active");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _customAuthenticationStateProvider.GetTokenAsync());
+            int userId = await _customAuthenticationStateProvider.GetUserId();
+            return await _httpClient.GetFromJsonAsync<List<Parking>>($"{BaseApiUrl}/active/{userId}");
         }
         public async Task<List<Parking>> GetArchivedParkings()
         {
-            return await _httpClient.GetFromJsonAsync<List<Parking>>($"{BaseApiUrl}/archived");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _customAuthenticationStateProvider.GetTokenAsync());
+            int userId = await _customAuthenticationStateProvider.GetUserId();
+            return await _httpClient.GetFromJsonAsync<List<Parking>>($"{BaseApiUrl}/archived/{userId}");
         }
         public async Task AddParkingAsync(Parking parking)
         {
@@ -53,5 +57,24 @@ namespace ParkingManagementBlazorServer.Services
             await _httpClient.SendAsync(httpRequest);
         }
 
+        public async Task SelectingParkingAsync(int SelectedId)
+        {
+            int userId = await _customAuthenticationStateProvider.GetUserId();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Put, $"{BaseApiUrl}/{SelectedId}/{userId}");
+            await _httpClient.SendAsync(httpRequest);
+        }
+
+        public async Task<List<Parking>> GetSelectedParkings()
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _customAuthenticationStateProvider.GetTokenAsync());
+            int userId = await _customAuthenticationStateProvider.GetUserId();
+            return await _httpClient.GetFromJsonAsync<List<Parking>>($"{BaseApiUrl}/selected/{userId}");
+        }
+
+        public async Task CancelParking(int parkingId)
+        {
+            var httpRequest = new HttpRequestMessage(HttpMethod.Put, $"{BaseApiUrl}/cancel/{parkingId}");
+            await _httpClient.SendAsync(httpRequest);
+        }
     }
 }

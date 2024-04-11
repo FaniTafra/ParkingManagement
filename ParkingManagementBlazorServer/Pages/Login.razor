@@ -1,4 +1,5 @@
 ﻿@page "/Login"
+@using Blazored.Toast.Services;
 <h3>Login Form</h3>
 @inject NavigationManager _navigationManager;
 @inject LoginService _service;
@@ -18,7 +19,7 @@
         <InputText id="password" type="password" class="form-control" @bind-Value="@loginModel.Password" />
         <ValidationMessage For="@(() => loginModel.Password)" />
     </div>
-
+    <br />
     <button type="submit" class="btn btn-primary">Log in</button>
     <button title="Register" class="btn btn-primary" @onclick="ShowRegisterForm">
         <span class="fa fa-sign-in"></span>
